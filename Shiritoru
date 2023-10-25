@@ -1,0 +1,45 @@
+import java.util.*;
+
+public class Shiritori {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Create a HashSet to store words encountered
+        HashSet<String> hash = new HashSet<>();
+        
+        String results = "Fair Game";  // Initialize the result as "Fair Game"
+        int turns = sc.nextInt();     // Read the number of turns
+        String curr = "";
+        char end = '!';              // Initialize the ending character as '!'
+
+        for (int i = 0; i < turns; i++) {
+            curr = sc.next();
+            
+            // Check if the current word doesn't start with the expected ending character
+            if (curr.charAt(0) != end && end != '!') {
+                if (i % 2 == 0) {
+                    results = "Player 1 lost";
+                } else {
+                    results = "Player 2 lost";
+                }
+                break;
+            }
+            
+            // Check if the current word has been encountered before
+            if (hash.contains(curr)) {
+                if (i % 2 == 0) {
+                    results = "Player 1 lost";
+                } else {
+                    results = "Player 2 lost";
+                }
+                break;
+            }
+            
+            hash.add(curr);
+            end = curr.charAt(curr.length() - 1);
+        }
+        
+        sc.nextLine();  // Consume the newline character
+        System.out.println(results);  // Print the game result
+    }
+}
